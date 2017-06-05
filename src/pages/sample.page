@@ -1,0 +1,45 @@
+<apex:page >
+   <html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>each demo</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  
+</head>
+    <body>
+    <a href="http://api.jquery.com/text/" id="atag"><img align="centre" src="/resource/1479956742000/CommunityStyleResources/images/AboutSupport50x50.png" /> Click here</a>
+    <div id="a" style="color:red">ABC<h1 id="h1">This is a Heading</h1><br />
+    
+    <!--<div aria-expanded="true"  class="slds slds-picklist" style="margin-left:78%;width:11%;margin-top:2%;" >
+     <div aria-expanded="true" class="slds-picklist" >
+          <label class="slds slds-form-element__label" style="font-size:13px;">Language </label>
+          <button class="slds slds-button slds-button--neutral slds-picklist__label" id="button1" aria-haspopup="true"   style="max-width:34%;position:fixed;height:26px;margin-left:-8px;width:12%;">
+                  <span class="slds slds-truncate" id="spanId_Selected" style="font-size:93%;" >Select</span>
+                  <svg aria-hidden="true" class="slds-icon">
+                      <!-- <use xlink:href="{!URLFOR($Resource.LightningDesignSystem,'/SalesforceLightningDesignSystem/assets/icons/utility-sprite/svg/symbols.svg#down')}" id="svglanguagesDownId"></use>-->
+                 <!-- </svg>
+          </button>
+         <div class="slds-dropdown slds-dropdown--left slds-dropdown--small slds-dropdown--menu" id="downloadOptionsContainerId" style="min-width:142px;width:163px;margin-left:19%;margin-top: 5%;">
+              <ul class="slds-dropdown__list" role="menu" id="listitemsfrom" style="font-size:90%;margin-left:-1%">
+                   <li>a</li> <li>b</li>  <li>c</li> 
+              </ul>
+         </div>
+     </div>
+</div><br /><br />-->
+    <div class="slds-form-element">
+  <label class="slds-form-element__label" for="text-input-01">Input Label</label>
+  <div class="slds-form-element__control">
+    <input type="text" id="text-input-01" class="slds-input" placeholder="Placeholder Text" />
+  </div>
+</div><br /><br />
+    
+    <div id="b" style="color:green"><p id="p2">Second Heading</p></div><span>Find the text nodes (nodeType==3) and replace the textContent</span></div>
+    <div style="color:blue"><p id="p2">This is a paragraph.With the above code I get an integer value (such as 5, for example). What I would like to know, is how I can do something like this in jQuery.</p></div>
+    <div id="new"><textarea>contents of text area</textarea><br />
+    <button class="button">Submit</button>
+    </div>
+    <div id="lightning"></div>
+    <div id ="content">ABCDEFGH</div>
+    </body>
+   </html>
+</apex:page>

@@ -1,0 +1,11 @@
+<apex:page >
+  <html>
+    <head>
+        <meta name="google-site-verification" content="V3lH7dkq0yRzgGf9rch01HrrGct9DREA19gY6Y7Y_1Y" />
+        <title> My title </title>
+    </head> 
+    <body>
+        page contents
+    </body>
+    </html>
+</apex:page>

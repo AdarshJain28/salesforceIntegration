@@ -1,0 +1,100 @@
+<apex:page controller="CalendarExample_Controller" action="{!pageLoad}">
+    <head>
+        
+        <link href="{!$Resource.fullCalendarCSS}" rel="stylesheet" />
+        <link href="{!$Resource.fullCalendarPrintCSS}" rel="stylesheet" media="print" />
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        
+         <script src="{!$Resource.fullCalendarMomentJS}"></script>
+         <script src="{!$Resource.fullCalendarMinJS}"></script>
+         
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+    </head> 
+     
+  <script>
+
+        $(document).ready(function() { 
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                editable: true,
+                events:
+                [
+                    <apex:repeat value="{!events}" var="e">
+                        {
+                            title: "{!e.title}",
+                            start: '{!e.startString}',
+                            end: '{!e.endString}',
+                            url: '{!e.url}',
+                            allDay: {!e.allDay},
+                            className: '{!e.className}'
+                        },
+                    </apex:repeat>
+                ],
+                 dayClick: function(date, jsEvent, view) { 
+                     $('#eventContent').show();
+                    alert('Clicked on: ');  
+                }
+               
+            });
+        });
+        
+    </script>
+    
+<body>
+
+    <apex:sectionHeader title="My Google Calendar"/>
+    <apex:outputPanel id="calPanel">
+        <apex:form >
+        
+            <div id="cal-options">
+                <apex:commandButton value="{!IF(includeMyEvents,'Hide My Events','Show My Events')}" action="{!toggleMyEvents}"/>
+            </div>
+
+            <div id="cal-legend">
+                <ul>
+                    <li><span class="event-birthday"></span>Contact's Birthdays</li>
+                    <li><span class="event-campaign"></span>Campaigns</li>
+                    <li style="{!IF(includeMyEvents,'','display:none')}"><span class="event-personal"></span>My Events</li>
+                </ul>
+
+                <div style="clear:both;"><!--fix floats--></div>
+            </div>
+
+            <div style="clear:both;"><!--fix floats--></div>
+            <div id="calendar"></div>
+            
+            <div id="eventContent" title="Event Details" style="display:none;">
+                Start: <span id="startTime"></span><br></br>
+                End: <span id="endTime"></span><br></br>
+                <p id="eventInfo"></p>
+                <p><strong><a id="eventLink" href="" target="_blank">Read More</a></strong></p>
+            </div>
+            
+            
+        </apex:form>
+    </apex:outputPanel>
+</body>
+
+    <style>
+        #cal-options {float:left;}
+        #cal-legend { float:right;}
+        #cal-legend ul {margin:0;padding:0;list-style:none;}
+        #cal-legend ul li {margin:0;padding:5px;float:left;}
+        #cal-legend ul li span {display:block; height:12px; width:12px; margin-right:4px; float:left; border-radius:4px;}
+        #calendar {margin-top:20px;}
+        #calendar a:hover {color:#fff !important;}
+
+        .fc-event-inner {padding:3px;}
+        .event-birthday {background:#56458c;border-color:#56458c;}
+        .event-campaign {background:#cc9933;border-color:#cc9933;}
+        .event-personal {background:#1797c0;border-color:#1797c0;}
+    </style>
+    
+</apex:page>

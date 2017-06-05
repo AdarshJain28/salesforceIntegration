@@ -1,0 +1,436 @@
+<apex:page controller="SDLTranslationSettingsController" sidebar="false">
+  
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Configuration Screen</title>
+
+    <!-- Bootstrap -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />-->
+    <apex:stylesheet value="{!URLFOR($Resource.SDL,'SDL/CSS/bootstrap.min.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.SDL,'SDL/CSS/multiselect.css')}"/>
+    <!--link rel="stylesheet" href="https://github.com/lou/multi-select/blob/master/css/multi-select.css" />-->
+   
+    
+    <style>
+     *{
+      font-family: Arial;
+      margin: 0 auto;
+      }
+        .h1, h1 {
+          font-size: 23px;
+        }
+        .theaderStatus {width:150px;}
+        .theaderFrom {width:210px;}
+        .theaderTo {width:210px;}
+        .theaderType {width:210px;}
+       
+        .tdefinitionStatus {width:150px;}
+        .tdefinitionFrom {width:210px;}
+        .tdefinitionTo {width:210px;}
+        .tdefinitionType {width:210px;}
+       
+        
+         /*div#SDLSpinner{
+                    display: none;
+                    width:100px;
+                    height: 100px;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    text-align:center;
+                    padding:10px;
+                    font:normal 16px Tahoma, Geneva, sans-serif;
+                    margin-left: -50px;
+                    margin-top: -50px;
+                    z-index:2;
+                    overflow: auto;
+                }
+                
+                div#SDLSpinner:before {
+                  content: '';
+                  display: block;
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background-color: rgba(0,0,0,0.3);
+                }*/
+                div#SDLSpinner::before {
+                  content: '';
+                  display: block;
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background-color: rgba(0,0,0,0.1);
+                  
+                }
+                
+                 #SDLSpinner{
+                 
+                  position: absolute;
+                  top: 44%;
+                  left: 46%;
+                }
+    </style>
+   
+    
+  </head>
+  
+  <body>
+  
+  <apex:includeLightning />
+
+    <div id="lightning" />
+  <apex:form styleClass="form-horizontal" id="sdlsetting">
+  <apex:pageMessages ></apex:pageMessages>
+ 
+  <apex:outputPanel rendered="{!MetadataConnectionWarning}">
+            <div style="margin-left:20px">
+            <h4>Important Post Install Step:</h4><br/><br/> 
+            <p style="font-size:13px">In order to utlise the features of this tool you need to permit the tool access to the Salesforce Metadata API link: <b>https://sdl-translate.eu5.visual.force.com</b> by adding in <a target="_new" href="http://na1.salesforce.com/help/doc/en/configuring_remoteproxy.htm">Remote Site Setting</a>. Click the <a target="_new" href="/apex/SDLConfigPage">Configure</a> link to have the tool perform this step.</p>
+            <!--<p style="font-size:13px"> Click the <a target="_new" href="/apex/SDLConfigPage">Configure</a> link to have the tool perform this step.</p>-->
+            
+            </div>
+  </apex:outputPanel>
+  <apex:actionFunction name="refreshSDLDictionaries" action="{!getSDLDictionaries}" oncomplete="location.reload();"/>
+  <apex:actionFunction name="refreshSDLLanguagesPairs" action="{!saveLanguagePairs}" oncomplete="location.reload();"/> 
+    <div class="container" >
+        <br/>
+        <!--<h1>SDL Language Settings</h1>-->
+        <br/>
+    
+    
+        <!-- Translation Settings -->
+        <div class="panel panel-default" style="visibility:visible;border-top:solid 3.8px #509E50;">
+        
+             <div>
+               <span style="position:relative;top:15px;left:20px;">
+                    <h3 style="color:#999999"><!-- SDL Quick Translate - Administration -->
+                    <a href="http://www.sdl.com/languagecloud/salesforce.html" target="_blank" style="text-decoration: none">
+                      <!--- <apex:image url="{!URLFOR($Resource.SDL ,'SDL/image/SDL_product_Global_Team-01.png') }" width="190" height="50" / >---->
+                      <apex:image url="{!URLFOR($Resource.Logo ,'Logo/SDL_Instant_Translate.png') }" width="210" height="50" / >
+
+                    </a>
+                    </h3>
+               </span>     
+             </div>
+       
+         <form class="form-horizontal">
+            <div class="panel-body">
+                
+           <!-- USAGE AND CONTROL -->
+            <div class="panel panel-default" style="color:#808080;position:relative;top:20px;visibility:visible;border-top:solid 3.8px #509E50;">
+            <span style="position:relative;top:17px;left:10px;">
+                 <h5><b> <p> USAGE AND CONTROL </p></b> </h5>
+            </span>  
+               <p style="color:#999999;position:relative;top:22px;left:10px;"> Your organization has used up {!usagePercentage}% of the available number of words for this month. <a href="/{!sdlUsageHistoryDashboard.id}" target="_blank" style="text-decoration: none">Usage history.</a> </p>
+                    <div class="form-group"> 
+                       <div class="col-sm-12" style="width:50.66%;position:relative;top:25px;left:10px;">
+                            <div class="progress">
+                                <div id="usageDiv" class="progress-bar progress-bar-striped active" role="progressbar" 
+                                     aria-valuemin="0" aria-valuemax="100" style="color: black;" >
+                                    {!sdlSettings.Usage__c}
+                                </div>
+                             </div>
+                           </div>  
+                        <div id="maxUsageDiv" class="col-sm-1" style="position:relative;top:25px;left:5px;">
+                            {!sdlSettings.MaxUsage__c}
+                        </div>
+                  
+                   <div class="col-sm-9" style="position:relative;top:15px;left:10px;" >      
+                    <label for="organization_wide_translation" class="col-sm-4 control-label" >
+                            Turn on for the entire organization
+                    </label>
+                       
+                            <!-- <input type="checkbox" id="organization-wide-translation" />-->
+                            <apex:inputField id="organization-wide-translation" value="{!sdlSettings.isActive__c}" style="position:relative;left:12px;top:9px" />
+                        </div>  
+                    </div>
+                                                         
+                    <!-- App Integration Key -->
+                   <span style="position:relative;top:15px;left:10px;">  
+                    <div class="form-group">
+                        <label for="app-integration-key" class="col-sm-3 control-label">
+                            API Integration Key
+                        </label>
+                        <div class="col-sm-9">
+                            <!--<input type="text" class="form-control" id="app-integration-key" 
+                                placeholder="Introduce the app integration key" value="{!sdlSettings.APIKey__c}" style="width:30%" />-->
+                                <apex:inputField styleClass="form-control" value="{!sdlSettings.APIKey__c}" style=" width : 34%;" />
+                        </div>
+                    </div>
+                    
+                    <!-- Target Language -->
+                    <div class="form-group">
+                        <label for="target-language-preference" class="col-sm-3 control-label">
+                            Target Language Preference
+                        </label>
+                        <div class="col-sm-9">
+                            <!--<input type="text" class="form-control" id="max-usage" 
+                                placeholder="Max Usage" value="{!sdlSettings.MaxUsage__c}" style="width:30%" />-->
+                                <apex:inputField id="targetLanguagePreference" styleClass="form-control" value="{!sdlSettings.Target_Language_Preference__c}" style=" width : 34%;"/>
+                        </div>
+                    </div>
+                    
+                    <!-- Language detection -->
+                    <div class="form-group">
+                        <label for="target-language-preference" class="col-sm-3 control-label">
+                            Language Detection Character Limit
+                        </label>
+                        <div class="col-sm-9">
+                            <!--<input type="text" class="form-control" id="max-usage" 
+                                placeholder="Max Usage" value="{!sdlSettings.MaxUsage__c}" style="width:30%" />-->
+                                <apex:inputField id="detectionLimit" styleClass="form-control" value="{!sdlSettings.Detection_limit__c}" style=" width : 34%;"/>
+                        </div>
+                    </div>
+                    
+                    <!-- Max Usage -->
+                    <div class="form-group">
+                        <label for="max-usage" class="col-sm-3 control-label">
+                            Max Usage
+                        </label>
+                        <div class="col-sm-9">
+                            <!--<input type="text" class="form-control" id="max-usage" 
+                                placeholder="Max Usage" value="{!sdlSettings.MaxUsage__c}" style="width:30%" />-->
+                                <apex:inputField styleClass="form-control" id="max-usage" value="{!sdlSettings.MaxUsage__c}" style=" width : 34%;"/>
+                        </div>
+                    </div>
+                    </span>
+                <br/>
+         <p style="color:#999999;position:relative;top:18px;left:10px;">Please contact us with any queries on the SDL Global Team app or your translation requirements at  <a href="mailto:SFDCapps@sdl.com" target="_blank" style="text-decoration: none">SFDCapps@sdl.com</a> or go to <a href="http://www.sdl.com " target="_blank" style="text-decoration: none">www.sdl.com</a></p> 
+        <br/>           
+                    <!-- Usage
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" style="line-height: 4px;">
+                            Usage
+                        </label>
+                        
+                        
+                        <div id="maxUsageDiv" class="col-sm-1">
+                            {!sdlSettings.MaxUsage__c}
+                        </div>
+                    </div>  -->
+                 </div>
+              <!-- Language Pairs -->            
+         <div class="panel panel-default" style="position:relative;top:15px;height:285px;color:#808080;visibility:visible;border-top:solid 3.8px #509E50;">
+               <div style="position:relative;top:15px;left:28px;" class="form-group">
+                 <h5><b>LANGUAGE PAIRS</b></h5> &nbsp;&nbsp; 
+                  <apex:inputText id="search" styleClass="form-control" style="position:relative;top:-25px;left:150px;width:23%;" html-placeholder="Please enter a language to search" />
+                   <button type="button" class="btn btn-default btn-lg " onclick="refreshLanguagePairs();" style="position:relative;top:-55px;left:440px;">
+                     <span class="glyphicon glyphicon-refresh icon-large" style="width:19px;height:18px;font-size:15.5px;color:#787878 "></span> 
+                   </button>
+               </div>  
+           <div>
+            <table class="table table-hover table-condensed table-bordered" style="position:relative;top:-35px;">
+                <tr class="info" style="color:black">
+                    <th class="theaderStatus">Status</th>
+                    <th class="theaderFrom">From</th>
+                    <th class="theaderTo">To</th>
+                    <th class="theaderType">Type</th>
+                    <th class="theaderDomain">Domain</th>
+                </tr>
+             </table>
+          <div style="height:186px;overflow-y:auto;line-height:100px;position:relative;top:-55px;" >
+           <table class="table table-hover table-condensed table-bordered" id="fieldTable">
+            <apex:repeat value="{!languagePairs}" var="lp"> 
+            <!--<apex:repeat value="{!sortedLangPairs}" var="lp">-->
+              <tr>
+                  <td class="tdefinitionStatus"><apex:inputField value="{!lp.Status__c}"/></td>
+                  <td class="tdefinitionFrom"><apex:outputText value="{!lp.FromLanguage__c}"/></td>
+                  <td class="tdefinitionTo"><apex:outputText value="{!lp.ToLanguage__c}"/></td>
+                  <td class="tdefinitionType"><apex:outputText value="{!lp.Type__c}"/></td>
+                  <td><apex:outputText value="{!lp.Domain__c}"/></td>
+              </tr>
+            </apex:repeat>  
+           </table>
+        </div>   
+     </div>
+     <!--   <div class="panel-footer">
+        <div class="row">
+            <div class="col-sm-offset-3 col-sm-3">
+              <button type="button" class="btn btn-default">New</button>
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <apex:commandButton styleClass="btn btn-default" value="Save" action="{!saveLanguagePairs}" />
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <apex:commandButton styleClass="btn btn-default" value="cancel" action="{!NULL}" /> 
+            </div>
+        </div>
+  
+            <div class="clearfix"></div>
+      </div> --> 
+     </div>    
+                        <!-- DICTIONARY SECTION -->
+             <div class="panel panel-default" style="position:relative;top:15px;color:#808080;visibility:visible;border-top:solid 3.8px #509E50;">
+        
+               <div style="position:relative;top:15px;left:10px;color:#808080;" >
+                    <h5><b> DICTIONARY  </b></h5>
+                   <button type="button" class="btn btn-default btn-lg " style="position:relative;top:-1px;left:20px;width:22px;height:19px;" onclick="reloadDictionaries();">
+                     <span class="glyphicon glyphicon-refresh icon-large" style="width:17.2px;height:17px;font-size:12px;color:#787878 "></span> 
+                   </button>
+ 
+               </div>
+              <div class="panel-body form-group" style="position:relative;top:10px;left:10px;color:#808080;width:20%;"> 
+                    <apex:SelectList value="{!selectedDictionary}" multiselect="false" size="1" styleClass="form-control">
+                              <apex:selectOptions value="{!availableDictionaries}" />
+                    </apex:selectList> 
+              </div> 
+           </div>        
+               <!-- Page Layouts -->  
+         <div class="panel panel-default" style="position:relative;top:15px;visibility:visible;border-top:solid 3.8px #509E50;">
+            <div style="position:relative;top:10px;left:10px;color:#808080;">
+                <h5><b> AVAILABILTY </b></h5>
+            </div>        
+               
+            <div class="panel-body" style="position:relative;top:10px;color:#808080;"> 
+             <p>Translation will be available on the following pages:</p>                         
+                <c:MultiselectPickist leftLabel="Available Layouts"
+                    leftOptions="{!MetaDataItems}"
+                    rightLabel="Selected Layouts"
+                    rightOptions="{!selectedLayouts}"
+                    size="14"  
+                width="150px"/>
+                <br/>
+            </div>
+                
+            </div>
+            
+            <!-- ADMIN NOTIFICATION -->
+           <div class="panel panel-default" style="position:relative;top:15px;color:#808080;visibility:visible;border-top:solid 3.8px #509E50;">
+        
+                <div style="position:relative;top:15px;left:10px;color:#808080;">
+                    <h5><b> ADMIN NOTIFICATION REMAINING TRANSLATON CAPACITY </b></h5>                  
+                </div>     
+              <div class="panel-body" style="color:#808080"> 
+               <c:MultiselectPickist leftLabel="System Administrator"
+                    leftOptions="{!SystemAdmins}"
+                    rightLabel="Selected System Administrator"
+                    rightOptions="{!selectedSystemAdmins}"
+                    size="4" width="80px" />
+                
+              </div>   
+           </div>  
+           
+          
+           
+            
+            
+          </div>  
+                <div class="panel-footer">
+            
+                    <div class="row">
+                        <div class="span4 offset4 text-center" >
+                          <!--<button type="submit" class="btn btn-default" onclick="methodOneInJavascript();">Save</button>
+                          <button type="submit" class="btn btn-default">Cancel</button>-->
+                          <apex:commandButton styleClass="btn btn-default" value="Save" action="{!saveSettings}"/>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <apex:commandButton styleClass="btn btn-default" value="Cancel" action="{!NULL}" />
+                           
+                        </div>
+                    </div>
+                  
+                  <div class="clearfix"></div>
+            
+                </div>
+                        
+            </form> 
+        </div>
+        
+        
+        
+    
+    </div>
+    <div id="SDLSpinner">
+      <apex:image url="{!URLFOR($Resource.SDL,'SDL/image/SDL.activity.indicator.globe.48x48.gif')}" width="50" height="50"/>
+    </div>
+    </apex:form>
+    
+    <apex:includeScript value="{!URLFOR($Resource.SDL, 'SDL/JS/jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.SDL, 'SDL/JS/bootstrap.min.js')}"/>
+
+    <script type="text/javascript">
+        $Lightning.use("AJDEVORG:SelectedTextApp", function() {
+          $Lightning.createComponent("AJDEVORG:SelectedText",{ },"lightning",
+          function(cmp) {
+                
+            });
+        });
+        
+        function setFocusOnLoad() {}
+        
+        $( document ).ready(function() { 
+            $('#SDLSpinner').hide();
+            
+            
+            var width = ({!sdlSettings.Usage__c} / {!sdlSettings.MaxUsage__c})*100;
+            $('.progress-bar').css('width', width+'%').attr('aria-valuenow', width);              
+            $("#usageDiv").html(commaSeparateNumber({!sdlSettings.Usage__c}));
+            $("#maxUsageDiv").html(commaSeparateNumber({!sdlSettings.MaxUsage__c}));
+            
+            var targetSelectionLanguage = $('select')[0];
+            $(targetSelectionLanguage[0]).remove();
+            
+            var detectLanguage = $('select')[1];
+            $(detectLanguage[0]).remove(); 
+            
+            $('input[id$=search]').keyup(function(){
+                console.log('input');
+                searchTable($(this).val());
+            });            
+        });
+       
+       function searchTable(inputVal)
+       {
+        var table = $('#fieldTable');
+        console.log(table);
+        table.find('tr').each(function(index, row)
+        {
+            var allCells = $(row).find("td");
+            console.log(allCells );
+            if(allCells.length > 0)
+            {
+                var found = false;
+                allCells.each(function(index, td)
+                {
+                    var regExp = new RegExp(inputVal,'i');
+                    if(regExp.test($(td).text()))
+                    {
+                        found = true;
+                        return false;
+                    }
+                });
+                if(found == true)$(row).show();else $(row).hide();
+            }
+        });
+      }
+ 
+        function reloadDictionaries(){
+        
+            $('#SDLSpinner').show();
+            refreshSDLDictionaries();
+        }
+        
+        function refreshLanguagePairs(){
+        
+            $('#SDLSpinner').show();
+            refreshSDLLanguagesPairs();
+        }
+        
+         function commaSeparateNumber(val){
+             while (/(\d+)(\d{3})/.test(val.toString())){
+                 val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+             }
+             
+             return val;
+         }
+    
+       </script>
+    
+    
+  </body>
+</apex:page>

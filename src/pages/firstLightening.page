@@ -1,0 +1,21 @@
+<apex:page >
+<head>
+  <meta charset="utf-8" />
+  <title>each demo</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+    <apex:includeLightning />
+
+    <div id="lightning" />
+  <script>
+        $Lightning.use("AJDEVORG:LanguageListComponent", function() {
+          $Lightning.createComponent("AJDEVORG:LanguageList",{ },"lightning",
+          function(cmp) {
+                
+            });
+        });
+    </script>
+    <style>
+    
+    </style>
+</apex:page>

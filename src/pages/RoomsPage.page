@@ -1,0 +1,16 @@
+<apex:page showHeader="false" controller="RoomsPageController">
+ <!--   <apex:include pageName="CommunityHeaderPage"/> -->
+     <div class="main_bg">
+         <apex:repeat value="{!hotelRooms}" var="room" id="roomRepeater">
+             <div class="grid1_of_3">
+                 <div class="grid1_of_3_img">
+                     <img src="{!room.Room_Image__c}"/>
+                 </div>
+                 <h4><span style="float: right;">{!room.Price__c}</span></h4>
+                 <p>{!room.Description__c}</p>
+             </div>
+         </apex:repeat>
+         <div class="clear"></div>
+     </div>
+   <!--  <apex:include pageName="CommunityFooterPage"/> -->
+</apex:page>

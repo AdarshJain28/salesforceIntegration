@@ -1,0 +1,5 @@
+<apex:page controller="SiteLoginControllerAdarsh">
+  <c:siteLoginPageComponent >
+      
+  </c:siteLoginPageComponent>
+</apex:page>

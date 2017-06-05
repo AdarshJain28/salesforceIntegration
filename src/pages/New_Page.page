@@ -1,0 +1,162 @@
+<apex:page showHeader="false" sidebar="false">
+    <apex:includeLightning />
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>each demo</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  
+</head>
+    <body>
+    <a href="http://api.jquery.com/text/" id="atag"><img align="centre" src="/resource/1479956742000/CommunityStyleResources/images/AboutSupport50x50.png" /> Click here</a>
+    <div id="a" style="color:red">ABC<div id="innerdiv">Hello</div><p id="h1" style="font-size:18px">This is a Heading</p><br />
+    
+    <!--<div aria-expanded="true"  class="slds slds-picklist" style="margin-left:78%;width:11%;margin-top:2%;" >
+     <div aria-expanded="true" class="slds-picklist" >
+          <label class="slds slds-form-element__label" style="font-size:13px;">Language </label>
+          <button class="slds slds-button slds-button--neutral slds-picklist__label" id="button1" aria-haspopup="true"   style="max-width:34%;position:fixed;height:26px;margin-left:-8px;width:12%;">
+                  <span class="slds slds-truncate" id="spanId_Selected" style="font-size:93%;" >Select</span>
+                  <svg aria-hidden="true" class="slds-icon">
+                      <!-- <use xlink:href="{!URLFOR($Resource.LightningDesignSystem,'/SalesforceLightningDesignSystem/assets/icons/utility-sprite/svg/symbols.svg#down')}" id="svglanguagesDownId"></use>-->
+                 <!-- </svg>
+          </button>
+         <div class="slds-dropdown slds-dropdown--left slds-dropdown--small slds-dropdown--menu" id="downloadOptionsContainerId" style="min-width:142px;width:163px;margin-left:19%;margin-top: 5%;">
+              <ul class="slds-dropdown__list" role="menu" id="listitemsfrom" style="font-size:90%;margin-left:-1%">
+                   <li>a</li> <li>b</li>  <li>c</li> 
+              </ul>
+         </div>
+     </div>
+</div><br /><br />-->
+    <div class="slds-form-element" id="sld">
+  <label class="slds-form-element__label" for="text-input-01">Input Label</label>
+  <div class="slds-form-element__control">
+    <input type="text" id="text-input-01" class="slds-input" placeholder="Placeholder Text" />
+  </div>
+</div><br /><br />
+    
+    <div id="b" style="color:green"><p id="p2">Second Heading</p></div><span>Find the text nodes (nodeType==3) and replace the textContent</span></div>
+    <div style="color:blue"><p id="p3">This is a paragraph.With the above code I get an integer value (such as 5, for example). What I would like to know, is how I can do something like this in jQuery.</p></div>
+    <div id="new"><textarea id="textarea">contents of text area</textarea><br />
+    <button id="button" class="button">Submit</button>
+    </div>
+    <div id="lightning"></div>
+    <div id ="content">ABCDEFGH</div>
+    
+    <script>
+           
+           var jArray=[];
+            
+          
+    
+            $( document ).ready(function() {      
+            
+                var all = document.getElementsByTagName("*");
+                for (var i=0, max=all.length; i < max; i++) {
+                    if(all[i].nodeName!='BR' && all[i].nodeName!='LINK' && all[i].nodeName!='META' && all[i].nodeName!='LI' && all[i].nodeName!='A' && all[i].nodeName!='HTML' && all[i].nodeName!='BODY' && all[i].nodeName!='TITLE' && all[i].nodeName!='SCRIPT' && all[i].nodeName!='HEAD' && all[i].nodeName!='IMG')
+                    {
+                         var gtext = $(all[i]).clone().children().remove().end().text();
+                         var node=all[i].nodeName;
+                        // var id=all[i].id;
+                         $(node).each(function( i ) {
+                             var id=this.id;
+                             var result=getTextNodesIn($(this));
+                             var content;
+                            if(result.context.firstChild!=null){
+                                 if(result.context.firstChild.nodeValue!=null){
+                                       content=result.context.firstChild.nodeValue;
+                                 }
+                            }
+                    //});
+                      //console.log(node);
+                             if(id!=null && id!=undefined && id!='' && content!=undefined && content!='' && content!=null){
+                                  var obj = {};
+                                  obj["key"] = id;
+                                  obj["value"] = content;
+                                  obj["nodename"] = node;
+                                  jArray.push(obj);
+                            } 
+                       });  
+                         
+                    }
+                }
+               var jString = JSON.stringify(jArray);
+              // jString = jString.replace(/(\r\n|\n|\r)/gm,"");
+               console.log("jArray: "+jArray);
+               console.log("jString : "+jString );
+               
+                $Lightning.use("AJDEVORG:SDLTranslationComponentApp", function() {
+            
+                  $Lightning.createComponent("AJDEVORG:SDLTranslationComponent",{},"lightning",
+                  function(cmp) {
+                         var myExternalEvent;
+                         myExternalEvent = $A.get("e.AJDEVORG:myEvent");
+                         myExternalEvent.setParams({"data":jString});
+                         myExternalEvent.fire();
+                         $A.eventService.addHandler({ "event": "AJDEVORG:myEvent", "handler" : visualForceFunction});
+    
+                    });
+                });
+               
+           });
+           
+           function getTextNodesIn(el) {
+                return $(el).find(":not(iframe)").addBack().contents().filter(function() {
+                    return this.nodeType == 3;
+                });
+            };
+           
+    var visualForceFunction = function(event){
+            var n=0;
+            var myEventData = event.getParam("data");
+            var translatedoutput=JSON.parse(myEventData);
+            //console.log("myEventData***********"+myEventData);
+              console.log(translatedoutput);
+              console.log("translatedoutput.length: "+translatedoutput.length);
+            for(var i=0; i<translatedoutput.length;i++){
+                var id=translatedoutput[i].key;
+                var translatedtext=translatedoutput[i].translatedWrapper.translation;
+                var nodename=translatedoutput[i].nodename;
+                $(nodename).each(function( i ) {
+                             var theid=this.id;
+                             var result=getTextNodesIn($(this));
+                             var content;
+                            if(result.context.firstChild!=null){
+                                 if(result.context.firstChild.nodeValue!=null){
+                                       content=result.context.firstChild.nodeValue;
+                                       if(theid!=null && theid!=undefined && theid!='' && content!=undefined && content!='' && content!=null){
+                                              if(id==theid){
+                                                  //content=translatedtext;
+                                                  result.context.firstChild.data=translatedtext;
+                                              }
+                                        } 
+                                 }
+                            }
+                            
+                            
+                  });
+              /*  
+                console.log(i+">   id: "+id+", translatedtext: "+translatedtext);
+                var tag=document.getElementById(id);
+               console.log(tag);
+                if(tag!=null){
+                    if(tag.innerText!=null){
+                        
+                        console.log(n+">  tag---->"+tag);
+                        tag.innerText=translatedtext;
+                        n++;
+                
+                    }
+                }
+              */
+                
+            }
+        };
+
+           
+   </script>
+   
+    </body>
+    
+</html>
+</apex:page>

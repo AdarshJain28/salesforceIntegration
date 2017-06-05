@@ -1,0 +1,25 @@
+<apex:page >
+<body>
+<a href="http://www.sdl.com/languagecloud/salesforce" target="_blank" style="text-decoration: none">
+  <apex:image url="{!URLFOR($Resource.SDL ,'SDL/image/SDL_product_Instant_Translation-01.png') }" width="190" height="50" / >
+</a>
+<a href="#" id="newTab" target="_blank" onclick="openChatterPage();return false;" style="position:relative;top:12px;left:50px;color:#38ACEC" >SDL Translate</a>
+
+<apex:includeScript value="{!URLFOR($Resource.SDL, 'SDL/JS/jquery.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.SDL, 'SDL/JS/bootstrap.min.js')}"/>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(window).load(function(){
+            // window.open("/apex/SDLTranslationChatterPage");
+            openChatterPage();
+        });
+    });
+
+    function openChatterPage(){
+           window.open("/apex/SDLTranslationChatterPage");
+      }
+</script>
+
+</body>        
+</apex:page>

@@ -1,0 +1,117 @@
+<apex:page docType="html-5.0" sidebar="false">
+    <html lang="en" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"/>
+  <head>
+      <!-- <apex:stylesheet value="{!URLFOR($Resource.GoogleCalendar,'/fullcalendar.css')}"/>
+      <apex:stylesheet value="{!URLFOR($Resource.GoogleCalendar,'/fullcalendar.min.css')}"/>
+      <apex:stylesheet value="{!URLFOR($Resource.GoogleCalendar,'/fullcalendar.print.css')}"/>
+
+      <apex:includeScript value="{!URLFOR($Resource.GoogleCalendar,'/lib/jquery.min.js')}"/> 
+      
+      <apex:includeScript value="{!URLFOR($Resource.GoogleCalendarRealtedFiles, 'lib/jquery.min.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.GoogleCalendarRealtedFiles, 'lib/moment.min.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.GoogleCalendarRealtedFiles, 'fullcalendar.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.GoogleCalendarRealtedFiles, 'gcal.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.GoogleCalendarRealtedFiles, 'gcal.min.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.GoogleCalendar,'/lib/moment.min.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.GoogleCalendar,'/fullcalendar.js')}"/> -->
+      
+    
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.css"></script> 
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.js"></script> 
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css"></script> 
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/gcal.js"></script> 
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/gcal.min.js"></script> 
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>  <script src="https://apis.google.com/js/api.js"></script> 
+         <script type='text/javascript' src='fullcalendar/gcal.js'></script> -->
+     <script src="jquery-3.1.1.min.js"></script>
+   </head>
+         
+
+    <script>
+         jQuery = $.noConflict();
+         var clientId = '54903706821-m530ehv2cng8jjb1f65me1i10s3ols4f.apps.googleusercontent.com';
+         var apiKey = 'AIzaSyAXJ_d3P4jeOHnMxfrIvW6H8ypeFUAm9yM';
+         var scopes = 'https://www.googleapis.com/auth/calendar';
+        
+         window.onLoadCallback = function(){
+           gapi.auth2.init({
+               client_id: '54903706821-m530ehv2cng8jjb1f65me1i10s3ols4f.apps.googleusercontent.com'
+             });
+         }
+        
+         function handleClientLoad() {
+           gapi.client.setApiKey(apiKey);
+           window.setTimeout(checkAuth, 1);
+        }
+        
+         function checkAuth() {
+            gapi.auth.authorize({ client_id: clientId, scope: scopes, immediate: true }, handleAuthResult);
+        }
+        
+        var resource = {
+                    "summary": "My Event",
+                    "start": {
+                        "dateTime": '2017-02-18T09:00:00-07:00'
+                    },
+                    "end": {
+                        "dateTime": '2017-02-20T09:00:00-07:00'
+
+                    },
+                    "description":"We are organizing events",
+                    "location":"US",
+                    "attendees":[
+                    {
+                            "email":"attendee1@gmail.com",
+                            "displayName":"Jhon",
+                            "organizer":true,
+                            "self":false,
+                            "resource":false,
+                            "optional":false,
+                            "responseStatus":"needsAction",
+                            "comment":"This is my demo event",
+                            "additionalGuests":3
+                            
+                    },
+                    {    
+                        "email":"attendee2@gmail.com",
+                            "displayName":"Marry",
+                            "organizer":true,
+                            "self":false,
+                            "resource":false,
+                            "optional":false,
+                            "responseStatus":"needsAction",
+                            "comment":"This is an official event",
+                            "additionalGuests":3
+                    }
+                    ],
+                };
+        
+        function makeApiCall(){
+            gapi.load('calendar', 'v3', function () { 
+            var request = gapi.client.calendar.events.insert
+            ({
+                'calendarId': 'bitordertech.com_1od9rqpcj46b34v3m32a1k5n3k@group.calendar.google.com', 
+                "resource": resource    
+            });                
+        });
+       }
+    </script>  
+
+    <body>
+        <button id="btnCreateEvents" class="btn btn-primary" onclick="makeApiCall();">
+                        Create Events</button>  
+    
+            <div id="divifm">
+                <iframe id="ifmCalendar" 
+                src="https://www.google.com/calendar/embed?
+                height=550&amp;wkst=1&amp;bgcolor=%23FFFFFF&
+                amp;src=24tn4fht2sssdssfdiqqlsedk%40group.calendar.google.com&
+                amp;color=%238C500B&amp;ctz=Asia%2FCalcutta"
+                    style="border-width: 0" width="950" 
+                    height="520" frameborder="0" scrolling="no">
+                </iframe>
+            </div>
+    </body> 
+    
+</apex:page>

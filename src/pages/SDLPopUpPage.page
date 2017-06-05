@@ -1,0 +1,468 @@
+<apex:page controller="SDLPopUpPageController" sidebar="false" showHeader="false" applyBodyTag="false" id="myPage">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <apex:stylesheet value="{!URLFOR($Resource.SDL,'SDL/CSS/bootstrap.min.css')}"/>
+        <!--apex:stylesheet value="{!URLFOR($Resource.SDL, '/chosen.min.css')}"/>-->
+        <apex:stylesheet value="{!URLFOR($Resource.SDL,'SDL/CSS/PopUp.css')}"/>
+        
+        
+        <apex:includeScript value="{!URLFOR($Resource.SDL, 'SDL/JS/jquery.min.js')}"/>
+        <!--script type='text/javascript' src='//code.jquery.com/ui/1.11.4/jquery-ui.js'/>-->
+        <apex:includeScript value="{!URLFOR($Resource.SDL, 'SDL/JS/jquery-ui.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.SDL, 'SDL/JS/bootstrap.min.js')}"/>
+        <!--apex:includeScript value="{!URLFOR($Resource.PopUp, '/js/chosen.jquery.min.js')}"/>-->
+        <apex:includeScript value="{!URLFOR($Resource.SDL,'SDL/JS/zeroclipboard-master/ZeroClipboard.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.SDL,'SDL/JS/zeroclipboard-master/ZeroClipboard.min.js')}"/>
+        <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+        <!--apex:stylesheet value="{!URLFOR($Resource.SDL,'SDL/CSS/smoothness.css')}"/-->
+       
+    </head>
+    <style>
+        body{
+            font-family: Arial,Helvetica,sans-serif;
+        }
+         /*div#SDLSpinner{
+                    display: none;
+                    width:100px;
+                    height: 100px;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    text-align:center;
+                    padding:10px;
+                    font:normal 16px Tahoma, Geneva, sans-serif;
+                    margin-left: -50px;
+                    margin-top: -50px;
+                    z-index:0;
+                    overflow: auto;
+                }*/
+                
+               div#SDLSpinner::before {
+                  content: '';
+                  display: block;
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background-color: rgba(0,0,0,0.1);
+                  
+                }
+                
+                 #SDLSpinner{
+                 
+                  position: absolute;
+                  top: 44%;
+                  left: 46%;
+                  
+                  
+                }
+                textarea
+                {
+                margin:0;
+                padding:0;
+   
+                resize: none;
+                outline: none;
+                }
+                
+                input:focus, textarea { outline: none !important; }
+    </style>
+    
+    <body>
+        <apex:form id="myForm">
+        
+        <apex:inputHidden value="{!myString}" id="myHiddenField"/>
+        <apex:inputHidden value="{!myString1}" id="myHiddenField1"/>
+        <apex:actionFunction name="refreshMyPanel" reRender="selectListPanel" oncomplete="refreshSelectList();" />
+        <apex:actionFunction name="passStringToController" reRender="selectListPanel" action="{!myMethod}" oncomplete="refreshSelectList();"/>
+         
+        <div class="container1">
+            <div>
+                <div style="background-color:#F0F0F0;padding:5px;padding-top:2px">
+            
+                    <div>
+                        <apex:outputPanel id="selectListPanel"> 
+                        
+                            <span style="float:left;padding-top:10px;padding-left: 5px;">Translation&nbsp;from</span>
+                            <div style="color:#888888;padding-left:15px;float:left">
+                        
+                                <apex:selectList value="{!fromLanguage}" id="langpairFROM" size="1" style="border:0px;width:150px;color:#009ACD;background-color:#F8F8F8;">
+                        
+                                    <apex:selectOptions value="{!fromLanguageOptions}"/>
+                                    <apex:actionSupport event="onchange" oncomplete="refreshSelectList();" reRender="selectListPanel,msgs"/>
+                                </apex:selectList><br/>
+                            </div>
+                            <div style="float:left;padding-top:10px;padding-left:15px;padding-right:15px">to</div>
+                            <div style="color:#888888;padding-left:15px;">
+                        
+                                <apex:selectList value="{!toLanguage}" id="langpairTo" size="1" style="margin-right:75px;border:0px;appearance: none;color:#009ACD;background-color:#F8F8F8;width:150px">
+                                    <apex:selectOptions value="{!toLanguageOptions}"/>
+                                </apex:selectList>
+                                 <a href="#" data-clipboard-target="divSection" id="copy-button" onclick="callCopyLink()" style="position:absolute;top:12px;color:#38ACEC">Click to copy</a>
+                               <!--  <a href="mailto:subject=Translation%20from%20Salesforce%20page%20" target="_blank" style="position:absolute;top:12px;right:40px;color:#38ACEC">Click to Email</a>                          
+                                 <a href="#" id="email" style="position:absolute;top:12px;right:40px;color:#38ACEC">Click to Email</a>   -->
+                                  <!--<apex:outputLink target="_blank" value="EmailToInternalUser" style="position:absolute;top:12px;right:40px;color:#38ACEC" id="page" onclick="openEmailPage();">Click to Email</apex:outputlink> -->
+                                  <a href="#" target="_blank" onclick="openEmailPage();return false;" style="position:absolute;top:12px;right:40px;color:#38ACEC" id="page" >Click to email</a>  
+                            </div>
+                        </apex:outputPanel>
+                   </div> 
+               </div>
+               <div class="row" style="">
+                   <div class="row-same-height row-full-height" style="">
+                       <div class="col-xs-12 col-xs-height col-full-height">
+                           <!--<textarea class="form-control"  id="translate_textarea" rows="6" readOnly="true" style="border-style:none;background-color:white;height:'auto'"></textarea>
+                           <span style="float:right;color:#888888;padding-right:10px;padding-top:10px;font-size: 12px;">Powered by SDL Language Cloud</span><br/> -->
+                           <div id="divSection" class="form-control" style="height:160px;padding:10px;border-style:none;background-color:white;overflow-y:scroll;"></div>
+                           <span style="float:right;color:#888888;padding-right:10px;padding-top:6px;font-size: 12px;">Powered by SDL Language Cloud</span><br/>                          
+                       </div>
+                    
+                   </div>
+               </div>                                       
+           
+            </div>  
+        </div>
+        
+        <div id="SDLSpinner">
+            <!--apex:image url="{!$Resource.SDLSPinner}" width="50" height="50"/>-->
+            <apex:image url="{!URLFOR($Resource.SDL,'SDL/image/SDL.activity.indicator.globe.48x48.gif')}"/>
+        </div>
+        </apex:form>
+    </body>
+    <script>
+        var fromLanguage;
+        var toLanguage;
+        var toLangFromParent;
+        var translatedText;
+        var toLang;
+        var fromLang;
+        var objectName;
+        var recordName;
+        var recordId ;
+        
+        function callCopyLink() {
+            
+            ZeroClipboard.config({moviePath: 'js/ZeroClipboard.swf'});
+
+                            var client = new ZeroClipboard(document.getElementById("copy-button"));
+
+                            client.on('ready', function(event) {
+                                //console.log('movie is loaded');
+                                
+
+                                client.on('copy', function(event) {
+                                    //target is defined in data-clipboard-target while creating button
+                                    event.clipboardData.setData('text/plain', event.target.value);//instead of value, innerText works as well
+                                   
+                                });
+
+                                // callback triggered on successful copying
+                                client.on('aftercopy', function(event) {
+                                    //console.log("Text copied to clipboard: \n" + event.data['text/plain']);
+                                });
+                            });
+
+                            // In case of error - such as Flash not being available
+                            client.on('wrongflash noflash', function() {
+                                ZeroClipboard.destroy();
+                            });
+        }
+       
+       function refreshSelectList(){
+           //console.log('refreshSelectList');
+            j$("select:first").attr("id","fromOpt");
+            j$("select:eq(1)").attr("id","toOpt");
+
+            j$("#fromOpt").selectmenu({
+                change: function( event, ui ) {
+                    //console.log('change eeeee');
+                    refreshMyPanel();
+                    
+                    j$("#SDLSpinner").show();
+                   
+                }
+            
+            }).selectmenu( "menuWidget" ).css("height","150px");
+            
+            j$("#toOpt").selectmenu({
+                change: function( event, ui ) {
+                    //console.log('change eeeee');
+                   
+                    j$("#SDLSpinner").show();
+                    
+                    translateText(j$('#fromOpt').val(),j$('#toOpt').val(),sourceData, j$('#fromOpt option:selected').text(), j$('#toOpt option:selected').text()); 
+                    
+                }
+            
+            }).selectmenu( "menuWidget" ).css("max-height","150px");
+           
+            j$("#fromOpt-button").css('margin-top','6px').css("color","#38ACEC").css("border","0px").css("font-size","small");
+            j$("#toOpt-button").css('margin-top','6px').css("color","#38ACEC").css("border","0px").css("font-size","small").css('margin-right','75px');
+           
+            j$("ul[id=fromOpt-menu]").css("font-size","small");
+            j$("ul[id=toOpt-menu]").css("font-size","small");
+            
+            
+           //console.log('from is ==> '+j$("#fromOpt").val());
+            //console.log(j$("#toOpt").val());
+            callCopyLink();
+            translateText(j$('#fromOpt').val(),j$('#toOpt').val(),sourceData,j$('#fromOpt option:selected').text(), j$('#toOpt option:selected').text());
+            
+       }
+       
+       
+        
+        var j$ = jQuery.noConflict();
+        
+        
+        var sourceData;
+        var param;
+        var mesg;
+        var param; 
+        var parent_domain = '{!JSENCODE($CurrentPage.parameters.parent_domain)}';
+        var fromLanguageCodes;
+        var userTopicname = [];
+        var hrefAddress = [];
+        
+       
+        window.addEventListener("message", receiveMessage, false);
+        
+        j$(".container1").ready(function() {
+            callCopyLink();
+            j$("select:first").attr("id","fromOpt");
+            j$("select:eq(1)").attr("id","toOpt");
+            
+            j$("#fromOpt").selectmenu({
+                change: function( event, ui ) {
+                    refreshMyPanel();
+                    
+                }
+            
+            }).selectmenu( "menuWidget" ).css("height","150px");
+            j$("#toOpt").selectmenu().selectmenu( "menuWidget" ).css("max-height","150px");
+            
+            j$("#fromOpt-button").css('margin-top','6px').css("color","#38ACEC").css("border","0px").css("font-size","small");
+            j$("#toOpt-button").css('margin-top','6px').css("color","#38ACEC").css("border","0px").css("font-size","small").css('margin-right','75px');
+            //j$("#fromOpt-menu").css("font-size","small");
+            j$("ul[id=fromOpt-menu]").css("font-size","small");
+            j$("ul[id=toOpt-menu]").css("font-size","small");
+            
+            
+            /*j$("span[id$=langpairFROM-button]").css('margin-top','6px').css("color","#38ACEC").css("border","0px").css("font-size","small");
+            j$("span[id$=langpairTo-button]").css('margin-top','6px').css("color","#38ACEC").css("border","0px").css("font-size","small");
+            j$("ul[id$=langpairFROM-menu]").css("font-size","small");
+            j$("ul[id$=langpairTo-menu]").css("font-size","small");*/
+            
+            j$("#SDLSpinner").show();
+                    
+             
+            window.parent.postMessage("I'm loaded", parent_domain);
+        });   
+        
+        function receiveMessage(e){
+            //console.log('receiveMessage');
+            console.log("source data is ==> "+e.data);
+           
+            
+            var jsonobj = JSON.parse(e.data.replace(/\s+/g," ").replace(/(\r\n|\n|\r)/gm,""));
+           
+           
+            
+            //console.log("source data is ==> "+e.data);
+            
+            sourceData = jsonobj.selectedText;
+            
+            toLangFromParent = jsonobj.toLanguage;
+            
+            objectName = jsonobj.objectName;
+            //console.log('object'+objectName);
+            recordName = jsonobj.recordName;
+            //console.log('recordName'+recordName);
+            recordId = jsonobj.recordId;
+            
+            console.log('recordId '+recordId );
+            //console.log(toLangFromParent);
+            //alert(e.data);
+            //j$("#clipboard_textarea").val(sourceData);
+            
+            userTopicname = [];
+            hrefAddress = [];
+            userTopicname = jsonobj.userTopicnamenew.split(",");  
+            hrefAddress = jsonobj.hrefAddressnew.split(",");
+            
+            //console.log(toLangFromParent);
+            //alert(e.data);
+            //j$("#clipboard_textarea").val(sourceData);
+            
+            for(var i=0;i<userTopicname.length;i++)
+            {
+                var x = String(userTopicname[i]);
+                if(String(x).search(/@/g) != -1 && String(x).length > 1){
+                    var s1 = '<a href=\\"@';
+                    var s2 = '\\">@';
+                    var s3 = '</a>';
+                    var replacing = s1 + x.split('@')[1] + s2 + x.split('@')[1] + s3;
+                    console.log('<br> replacing text @= '+replacing);
+                    sourceData = sourceData.replace(x,replacing);
+                    console.log('<br> selected text is @= '+sourceData );
+                }
+                
+                if(String(x).search(/#/g) != -1 && String(x).length > 1){
+                    var s1 = '<a href=\\"#';
+                    var s2 = '\\">#';
+                    var s3 = '</a>';
+                    var replacing = s1 + x.split('#')[1] + s2 + x.split('#')[1] + s3;
+                    console.log('<br> replacing text #= '+replacing);
+                    sourceData = sourceData.replace(x,replacing);
+                    console.log('<br> selected text is #= '+sourceData );
+                }       
+           }  
+        
+           console.log('final selected text is ======'+sourceData);   
+            
+           getDetectLanguage(sourceData);
+        }
+        
+        function translateText(fromCode, toCode, selectedText,fromLangs,toLangs) {        
+            //console.log('fromCode=='+fromCode);
+            //console.log('toCode=='+toCode);
+             //console.log('selectedText=='+selectedText);
+             
+            fromLang = fromLangs;
+            //console.log('fromLang'+fromLang);
+            toLang = toLangs;
+            //console.log('toLang'+toLang); 
+                    
+             if(fromCode!='' && toCode!='' && toCode!='Select language' && selectedText!=''){
+             
+                Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.SDLPopUpPageController.translateText}',fromCode,toCode,encodeURIComponent(selectedText),
+                        function(result, event){
+                            //console.log('result==='+ JSON.stringify(result));
+                            //j$('#translate_textarea').val(result.translation);
+                    
+                            //translatedText  = result.translation;
+                            console.log('text after translation is 0000'+result.translation);
+                            
+                           
+                            var translatingText = j$('<textarea/>').html(result.translation).val();
+                            console.log('translatedText ==='+translatingText );
+                            translatingText = translatingText + ' ';
+          
+                              var ele =  j$('<div>').html(translatingText).find('a').length;
+                              console.log('the length of <a> tag is ====='+ele);
+                              
+                               var elements = [];
+                               for(var i=0;i<ele;i++){                            
+                               var str = '<a'+ translatingText.split('<a').pop().split('</a>').shift() + '</a>';
+                               console.log('the anchor identified '+str);
+                               //str = j$('<div>').html(str).find('a').attr("href");
+                               //str = str.replace('[','');
+                               //str = str.replace(']','');
+                               str = str.split('href=').pop().split('>').shift();
+                               str = str.replace(/\"/g, "");
+                               str = str.replace(/\\/g, "");   
+                               str = str.trim();
+                               console.log('href value after translated ='+str);
+                               elements[i] = str;
+                                var toReplaceText = '<a'+ translatingText.split('<a').pop().split('</a>').shift() + '</a>' ;
+                                console.log('toreplace text ==='+toReplaceText);                      
+                                translatingText= translatingText.replace(toReplaceText,str);
+                                                                  
+                               } 
+                             console.log('receivetext relaced'+translatingText);    
+                             for(var k = 0;k<elements.length;k++){
+                               var str = elements[k];
+                                 for(var j = 0;j<userTopicname.length;j++){
+                                   var x = String(userTopicname[j]);
+                                   console.log('x+++++'+x);
+                                   if(str == x){
+                                    str= str.link(String(hrefAddress[j]));
+                                    str= str + ' ';
+                                    console.log('href address link is '+ str);
+                                    translatingText= translatingText.replace(x+' ',str);
+                                    translatingText= translatingText.replace(/<a/g,'<a target="_blank"');
+                                    console.log('receivetext replaced'+translatingText); 
+                                   }
+                               } 
+                            } 
+                              
+                            console.log('replacedText finally translatingText'+translatingText);
+                            translatedText  = translatingText;
+                            
+                             console.log('trnslatedtext'+translatedText);
+                            //console.log(j$('#div').html(translatingText)); 
+                            //j$('#translate_textarea').val(j$('<textarea/>').html(result.translation).val());
+                            
+                            j$("#divSection").html(translatedText); 
+                            
+                            j$("#SDLSpinner").hide();
+                            if (event.status) {
+                               
+                            }else{
+                                //console.log('remote action translateText ====  '+event.message);
+                            }
+                        }, 
+                        { buffer: false, escape: true, timeout: 30000 }
+                    );
+                }else{
+                    j$("#SDLSpinner").hide();
+                }
+        }
+        
+        function getDetectLanguage(selectedText) {
+        console.log('selected text in getdetect'+selectedText);
+            if(selectedText){
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.SDLPopUpPageController.detectLanguageNew}',
+                    selectedText, 
+                    function(result, event){
+                        console.log('evnt type === '+event.type);
+                        if (event.status) {
+                            //console.log('remote action result ====  '+result);
+                            //console.log('remote action result ====  '+fromLanguageCodes[result]);
+                            
+                            var fromSelect = j$("#langpairFROM");
+                            //console.log(fromSelect);
+                            
+                            
+                           // param = fromLanguageCodes[result];
+                            if(result==''){
+                                result = 'unk';
+                            }
+                            
+                            j$('[id$=myHiddenField]').val(result);
+                            
+                            j$('[id$=myHiddenField1]').val(toLangFromParent);
+                            passStringToController();
+                            
+                            
+                            
+      
+                        }else if (event.type === 'exception') {
+                            console.log('remote action Error ====  '+event.message);
+                            j$('[id$=myHiddenField]').val('unk');
+                             j$('[id$=myHiddenField1]').val(toLangFromParent);
+                            passStringToController();
+                        }
+                    }, 
+                    { buffer: false, escape: true, timeout: 30000 }
+                );
+            }else{
+                //console.log('Please select the Data');
+            }
+        }
+      
+        
+        function openEmailPage(){
+             var p = window.open("/apex/SDLClickToEmail");
+        }
+        
+        function emailData(){
+            return { 'selectedtext':sourceData,'translatedText':translatedText ,'fromLanguage':fromLang,'toLanguage':toLang ,'objectName':objectName ,'recordName':recordName,'recordId':recordId };
+        }
+    
+    </script>
+    <apex:pageMessages id="msgs"/>
+</apex:page>

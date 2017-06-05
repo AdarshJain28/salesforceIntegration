@@ -1,0 +1,24 @@
+<apex:page title="Chatter : feed">
+<script src="/soap/ajax/24.0/connection.js"></script>
+<script src="/soap/ajax/24.0/apex.js"></script>
+
+<script>
+    sforce.connection.sessionId = '{!$Api.Session_ID}';
+    var $g = jQuery.noConflict(); 
+     $g(document).ready(function() {
+     console.log('chatter'+$g("a[title='SDLTranslate']").hide());
+     $g("a[title='SDLTranslate']").hide();   
+    });    
+    
+    
+</script>
+<apex:stylesheet value="{!URLFOR($Resource.SDL,'SDL/CSS/smoothness.css')}"/>
+
+<apex:includeScript value="{!URLFOR($Resource.SDL, 'SDL/JS/jquery.min.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.SDL, 'SDL/JS/jquery-ui.js')}"/>
+<apex:includeScript value="{!URLFOR($Resource.SDL, 'SDL/JS/SDLTranslate.js')}"/>
+
+<body>
+  <chatter:newsfeed oncomplete="hidetranslate();"/>
+</body>
+</apex:page>

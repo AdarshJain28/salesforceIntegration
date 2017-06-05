@@ -1,0 +1,228 @@
+<apex:page standardController="Live_Agent_Settings__c" extensions="LiveAgentChatWidget_Controller" docType="html-5.0" showHeader="false" sidebar="false">
+  
+<html lang="en" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+<head>
+  <title>SDL Project Form</title>
+                <meta charset="utf-8"/>
+                <meta content="ie=edge" http-equiv="x-ua-compatible"/>
+                <meta content="width=device-width, initial-scale=1" name="viewport"/>
+                <meta content="Design System" name="apple-mobile-web-app-title"/>
+                <meta content="Design System" name="application-name"/>
+                <meta content="#ffffff" name="msapplication-TileColor"/>
+                <meta content="#ffffff" name="theme-color"/>
+                
+                <apex:includeScript value="{!URLFOR($Resource.Create, '/lib/jquery/jquery-1.11.1.min.js')}"/>
+                <apex:includeScript value="{!URLFOR($Resource.liveAgent_static_Resources, '/liveagentStaticResources/jquery-1.12.0.js')}" />
+                 <apex:includeScript value="{!URLFOR($Resource.liveAgent_static_Resources, '/liveagentStaticResources/securefiltersmaster/lib/secure-filters.js')}" />
+                <apex:stylesheet value="{!URLFOR($Resource.SalesforceLightningDesignSystem, '/SalesforceLightningDesignSystem/assets/styles/salesforce-lightning-design-system-vf.css')}" />
+                <apex:stylesheet value="{!URLFOR($Resource.SalesforceLightningDesignSystem, '/SalesforceLightningDesignSystem/assets/styles/SalesforceLightningDesignSystem.css')}" />
+                <apex:stylesheet value="{!URLFOR($Resource.SalesforceLightningDesignSystem, '/SalesforceLightningDesignSystem/assets/styles/SalesforceLightningDesignSystem.min.css')}" />
+                <apex:includeScript value="/support/console/38.0/integration.js"/>
+                <script type="text/javascript" src="https://d.la1-c2cs-phx.salesforceliveagent.com/content/g/js/36.0/prechat.js"></script>
+  
+ 
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+<!--<div class="slds slds-button-group" role="group" style="margin-left:36.5%;margin-top:1%">
+     <input class="slds slds-button slds-button--brand " onclick="Translate();" id="tran"  value="Translate" type="button" style="line-height:27px;" /><br /><br />
+     
+                                                          
+</div>-->
+<div aria-expanded="true"  class="slds slds-picklist" style="margin-left:78%;width:11%;margin-top:2%;" >
+     <div aria-expanded="true" class="slds-picklist" >
+          <label class="slds slds-form-element__label" style="font-size:13px;">Language </label>
+          <button class="slds slds-button slds-button--neutral slds-picklist__label" id="button1" aria-haspopup="true" onclick="showOrHideOption(); return false;" style="max-width:34%;position:fixed;height:26px;margin-left:-8px;width:12%;">
+                  <span class="slds slds-truncate" id="spanId_Selected" style="font-size:93%;" >Select</span>
+                  <svg aria-hidden="true" class="slds-icon">
+                      <!-- <use xlink:href="{!URLFOR($Resource.LightningDesignSystem,'/SalesforceLightningDesignSystem/assets/icons/utility-sprite/svg/symbols.svg#down')}" id="svglanguagesDownId"></use>-->
+                  </svg>
+          </button>
+         <div class="slds-dropdown slds-dropdown--left slds-dropdown--small slds-dropdown--menu" id="downloadOptionsContainerId" style="min-width:142px;width:163px;margin-left:19%;margin-top: 5%;">
+              <ul class="slds-dropdown__list" role="menu" id="listitemsfrom" style="font-size:90%;margin-left:-1%">
+                    
+              </ul>
+         </div>
+     </div>
+</div>
+<div><a href="http://api.jquery.com/text/" id="atag"><img align="centre" src="/resource/1479956742000/CommunityStyleResources/images/AboutSupport50x50.png" /> Click here</a></div><br />
+<div id="a" style="color:red">ABC<h1 id="h1">This is a Heading</h1><br /><div id="b" style="color:green"><p id="p2">Second Heading</p></div><span>Find the text nodes (nodeType==3) and replace the textContent</span></div>
+<div style="color:blue"><p id="p2">This is a paragraph.With the above code I get an integer value (such as 5, for example). What I would like to know, is how I can do something like this in jQuery.</p></div>
+<div id="new"><textarea>contents of text area</textarea><br />
+<button>Submit</button>
+</div>
+
+ 
+<script>
+Visualforce.remoting.timeout = 150000; // Set timeout at page level
+var fromlang='eng';
+var tolang;
+var html_encode = secureFilters.html;
+
+$( document ).ready(function() {      
+            
+            getLanguagePairs();
+            
+ });
+
+function Translate(){
+    var all = document.getElementsByTagName("*");
+    for (var i=0, max=all.length; i < max; i++) {
+       if(all[i].nodeName!='BR' && all[i].nodeName!='LINK' && all[i].nodeName!='META' && all[i].nodeName!='LI' && all[i].nodeName!='A' && all[i].nodeName!='HTML' && all[i].nodeName!='BODY' && all[i].nodeName!='TITLE' && all[i].nodeName!='SCRIPT' && all[i].nodeName!='HEAD' && all[i].nodeName!='IMG'){
+         gtext = $(all[i]).clone().children().remove().end().text();
+         var node=all[i].nodeName;
+         console.log(node);
+         $(node).each(function( i ) {
+                 //var id=this.id;
+                 //console.log(this.id);
+                 var result=getTextNodesIn($(this));
+                 console.log(result);
+                 var texttotranslate;
+                 if(result.context.firstChild!=null){
+                 if(result.context.firstChild.nodeValue!=null){
+                   //result.context.firstChild.nodeValue=" <div tag> "+ result.context.firstChild.nodeValue+" <div tag>";
+                   texttotranslate=result.context.firstChild.nodeValue;
+                 }
+                 }
+                 else{
+                   //result.context.innerText=" <h1> "+result.context.innerText+ " <h1>";
+                   texttotranslate=result.context.innerText;
+                }
+                if(texttotranslate!=undefined && texttotranslate!=null){
+                Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.LiveAgentChatWidget_Controller.TextTranslation}',
+                                     texttotranslate,fromlang,tolang,
+                                        function(vfresult){
+                                        if(vfresult!=null){
+                                            if(vfresult.isError == null || vfresult.isError == undefined){
+                                                  
+                                                        //alert(result.translation);
+                                                        output=vfresult.translation;
+                                                        if(result.context.firstChild!=null){
+                                                        if(result.context.firstChild.nodeValue!=null){
+                                                            result.context.firstChild.nodeValue=output;
+                                                        }
+                                                        }
+                                                        else{
+                                                             result.context.innerText=output;
+                                                        }
+                                                       
+                                                        console.log(output);
+                                                        
+                                                     }
+                                             }
+                                            
+                                        }
+                                  ); 
+                       }
+                
+         });
+   } 
+   if(all[i].nodeName=='IMG'){
+               $( "img" ).each(function( i ) {
+               
+               console.log(this.id);
+                    var result=getTextNodesIn($(this));
+                    console.log(result);
+                    if(result.context.nextSibling!=null){
+                        if(result.context.nextSibling.data!=null){
+                            var texttotranslate= result.context.nextSibling.data;
+                            if(texttotranslate!=undefined && texttotranslate!=null){
+                                Visualforce.remoting.Manager.invokeAction(
+                                                    '{!$RemoteAction.LiveAgentChatWidget_Controller.TextTranslation}',
+                                                     texttotranslate,fromlang,tolang,
+                                                        function(vfresult){
+                                                          if(vfresult!=null){
+                                                            if(vfresult.isError == null || vfresult.isError == undefined){
+                                                                  
+                                                                        //alert(result.translation);
+                                                                        output=vfresult.translation;
+                                                                        result.context.nextSibling.data=output;
+                                                                       
+                                                                        console.log(output);
+                                                                        
+                                                                     }
+                                                             }
+                                                            
+                                                        }
+                                                  ); 
+                                 }
+                            
+                        }
+                    }
+                    
+                    
+              });
+   }
+       
+    }
+  
+
+function getTextNodesIn(el) {
+    return $(el).find(":not(iframe)").addBack().contents().filter(function() {
+        return this.nodeType == 3;
+    });
+};
+
+
+}
+
+ function getLanguagePairs(){
+            Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.LiveAgentChatWidget_Controller.SDLLanguagePairs}',
+                        function(result, event){
+                          if(result!=null){
+                                var $pickfrom = $('#listitemsfrom');
+                               
+
+                           $.each( result, function( key, value ) {
+                                     console.log('key '+key +'value : ' + value );
+                                        $pickfrom.append($('<li id="' + html_encode(key) + '"  class="slds-dropdown__item slds-has-icon--left"><a href="#" class="slds-truncate" id="' + html_encode(key) + '" role="menuitemradio" onclick="setPicklistVal(this.innerHTML,this.id);">'+ html_encode(value)+ '</a></li>'));
+                                    
+                                      
+                                  });
+                             }
+                             else{
+                                   alert("languages not available");
+                             
+                             }
+                        }
+                  ); 
+        }
+ 
+ function setPicklistVal(selectedTextval,selectedid){
+                      
+                      document.getElementById('spanId_Selected').innerHTML = html_encode(selectedTextval);
+                       tolang=selectedid;
+                       showOrHideOption();
+                       Translate();
+               
+             }
+ function showOrHideOption(){
+               // autodetectflag=false;
+               
+                if(showOrHideOptionVal == 'show'){
+                   
+                   $("#downloadOptionsContainerId").show();
+                  // $("#downloadOptionsContainerId1").hide();//new
+                   showOrHideOptionVal = 'hide';
+                }else if(showOrHideOptionVal == 'hide'){
+                   
+                   $("#downloadOptionsContainerId").hide();
+                   showOrHideOptionVal = 'show';
+                }
+                
+    }
+            
+  showOrHideOptionVal = 'show';   
+  $('#downloadOptionsContainerId').hide();
+         
+  $( "#spanId_Selected,#svgDownId").click(function() {
+         showOrHideOption();
+         return false;
+   });
+</script>
+ 
+</body>
+</html>
+</apex:page>

@@ -1,0 +1,32 @@
+<apex:page showHeader="false" controller="HotelCommunityController">
+         <link href="https://my.cdn.com/css/style.css" rel="stylesheet" type="text/css" />
+         <apex:stylesheet value="{!URLFOR($Resource.TMS, '/TMS/CSS/assets/styles/salesforce-lightning-design-system-vf.css')}"/>
+         <apex:stylesheet value="{!URLFOR($Resource.Create, '/assets/styles/site.css')}"/>
+         <apex:stylesheet value="{!URLFOR($Resource.Create, '/assets/styles/sdl.css')}"/>
+         <apex:stylesheet value="{!URLFOR($Resource.Create, '/assets/styles.css')}"/>
+         <apex:includeScript value="{!URLFOR($Resource.Create, '/lib/jquery/jquery-1.11.1.min.js')}"/>
+
+         
+     <div class="header_bg"/>
+        <div class="wrap"/>
+            <div class="header" style="background-image: url({!contact.Hotel_Image__c});"/>   
+              <div class="logo">{!contact.Hotel__c}</div>
+                  <div class="nav">
+                      <ul class="menu">
+                        <!-- <li class="active"><a href="{!$Site.Prefix}/s/Hotels">Hotel</a></li> 
+                        <li><a href="{!$Site.Prefix}/RoomsPage?hotelId={!contact.Hotel__c}">Rooms and Suites</a></li>  -->
+                          <li class="active"><a href="https://adarshjaintest-dev-ed--sitepreview.ap4.force.com/s/Hotels">Hotel</a></li>
+                              <li><a href="https://adarshjaintest-dev-ed--sitepreview.ap4.force.com/s/Rooms%20and%20Suites?hotelId={!contact.Hotel__c}">Rooms and Suites</a></li>
+                            <!--  <li><apex:outputLink value="{!$Site.Prefix}/secur/logout.jsp">Logout</apex:outputLink></li> -->
+                              </ul>
+                          </div>
+                          <div class="username">Welcome Back, {!$User.FirstName} {!$User.LastName} </div>
+                          
+                          
+  <script>
+      $(document).ready(function() {
+        console.log("{!$Site.prefix}");
+    });
+  </script>
+                  
+</apex:page>

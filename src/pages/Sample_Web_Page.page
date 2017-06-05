@@ -1,0 +1,230 @@
+<apex:page sidebar="false" showHeader="false">
+  <html lang="en" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+      <head>
+            <title>Sample Web Page</title>
+            <meta charset="utf-8"/>
+            <meta content="ie=edge" http-equiv="x-ua-compatible"/>
+            <meta content="width=device-width, initial-scale=1" name="viewport"/>
+            <meta content="Design System" name="apple-mobile-web-app-title"/>
+            <meta content="Design System" name="application-name"/>
+            <meta content="#ffffff" name="msapplication-TileColor"/>
+            <meta content="#ffffff" name="theme-color"/>
+            <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+      </head>
+      <style>
+          div#LiveSpinner:before {
+                  content: '';
+                  display: block;
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background-color: rgba(0,0,0,0.1);
+                  z-index:998 !important;
+                  
+            }
+            #LiveSpinner{
+                position:  fixed;
+                top: 45%;
+                left: 45%;
+                z-index:998 !important;
+            }
+      </style>
+      <body>
+           <main role="main" class="site-main" style=" margin-left:auto; !important">
+                    <div class="site-content slds slds-p-around--xx-large slds slds-grid slds slds-wrap" >
+                         <div class="container" style="margin-left:6%;width:65%;">
+                            <div class="slds slds-container--medium" style="margin-left: auto;margin-right: auto;!important;">
+                               <div class="panel-body">   
+                                  <div class="slds slds-tabs--default" id="containerDivId" style="margin-top:10px;width:135%">                 
+                                    <div class="panel panel-default" style="color:#808080;top:20px;visibility:visible;border-top:solid 3.8px #2144c1!important;border: 1px solid #d8dde6;border-radius: 0.5%">
+                                       <div id="LiveSpinner" style="display:none;">
+                                                    <apex:image url="{!URLFOR($Resource.liveAgent_static_Resources, '/liveagentStaticResources/slds_spinner_brand.gif')}" width="100" height="100"/>
+                                        </div>
+                                        <!--Header-->
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="slds slds-page-header slds-text-align--center" role="banner" style="height:88px;border-bottom:solid 1px #2144c1">
+                                                        <div id="headerdiv" style="margin-top:8px;">
+                                                        <b style="margin-left:27%;font-size:50px;margin-top:1%"><div class="slds slds-text-heading--large slds-truncate" id="headerh1">Sample Web Page</div></b>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="background-color:#f4f6f9;">
+                                                    <apex:includeLightning />
+                                                    <div id="lightning" style="margin-left:-35%;"></div>
+                                                </td> 
+                                            </tr>
+                                        </table> <br />
+                                        <!--end of Header-->
+                                        <!--Images-->
+                                        <div style="margin-left:2%">
+                                            <img id="img1" src="https://upload.wikimedia.org/wikipedia/en/e/e8/Sdl-logo.png" style="width:100px;"/>
+                                            <img  id="img2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi1-1Yft0PeABx7TA_e_t2Sn58bbO93yvLBhbNtYHcPAHEIS6C" style="width:72px;margin-left:5%;" />
+                                            <img   id="img3" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSph5XH8bd5kC176V76hqJOSQBq8V7IVvcjLIGqyFrFGRci2lSX" style="width:130px;margin-left:5%;" />
+                                        </div><br />
+                                        <!--End of images-->
+                                        <!--Navigation bar-->
+                                        <div style="height:25px;background-color:#e3f3ff;">
+                                            <ul style="margin-left:4%;">
+                                                <a  id="a1" href="https://adarshjaintest-dev-ed--ajdevorg.ap4.visual.force.com/apex/Sample_Web_Page" style="font-size:18px;">Home</a>
+                                                <a  id="a2" href="https://adarshjaintest-dev-ed--ajdevorg.ap4.visual.force.com/apex/Sample_Web_Page" style="margin-left:5%;font-size:18px;">About Support</a> 
+                                                <a  id="a3" href="https://adarshjaintest-dev-ed--ajdevorg.ap4.visual.force.com/apex/Sample_Web_Page" style="margin-left:5%;font-size:18px;">Community</a>
+                                                <a  id="a4"  href="https://adarshjaintest-dev-ed--ajdevorg.ap4.visual.force.com/apex/Sample_Web_Page" style="margin-left:5%;font-size:18px;">Technical Docs</a>
+                                            </ul>
+                                        </div><br />
+                                        <!--end of Navigation bar-->
+                                        <!--Content-->
+                                        <div style="margin-left:2%;margin-right:2%;">
+                                            <div id="content heading" style="font-size:30px;color:#36a0fe;">Latest Articles</div>
+                                            <div class="slds-text-heading--small" id="content text" style="font-size:18px;">
+                                                <span id="spancontent">
+                                                    Label headers are used for small mini headers that don’t need to bring visual attention to themselves. They usually label small content areas like table columns and list sections.
+                                                    Label headers are used for small mini headers that don’t need to bring visual attention to themselves. They usually label small content areas like table columns and list sections.
+                                                    Label headers are used for small mini headers that don’t need to bring visual attention to themselves. They usually label small content areas like table columns and list sections.
+                                                    Label headers are used for small mini headers that don’t need to bring visual attention to themselves. They usually label small content areas like table columns and list sections.
+                                                    Label headers are used for small mini headers that don’t need to bring visual attention to themselves. They usually label small content areas like table columns and list sections.
+                                                    Label headers are used for small mini headers that don’t need to bring visual attention to themselves. They usually label small content areas like table columns and list sections.
+                                                </span>
+                                            </div>
+                                        </div><br />
+                                        <!--end of content-->
+                                        <!--Grid-->
+                                        <div class="slds-grid slds-grid--vertical-align-start">
+                                          <div class="slds-text-heading--small" style="margin-left:2%;font-size:16px;font-style:italic" id="italiccontent1">By default, the grid items within a .slds-grid do not stretch to take up that available white-space on the main axis. Apply .slds-col to a grid item, it will stretch across the main axis. The width of each grid item will be determined by the content within that region.</div><br />
+                                          <div class="slds-text-heading--small" style="margin-left:2%;font-size:16px;font-style:italic;" id="italiccontent2">The Lightning Design System grid, based on Flexbox, provides a flexible, mobile-first, device-agnostic scaffolding system. It includes helper classes that you can use to alter the look and behavior of your grid, such as alignment, order, flow, and padding helpers.</div>
+                                        </div><br />
+                                        <!--end of grid-->
+                                        <!-- FOOTER -->
+                                        <div style="color:#3a6690;font-size:12px;">
+                                            <footer role="contentinfo" class="slds-p-around--large">
+                                              <!-- LAYOUT GRID -->
+                                              <div class="slds-grid slds-grid--align-spread">
+                                                <p class="slds-col" id="footercontent1">Salesforce Lightning Design System Example</p>
+                                                <p class="slds-col" id="footercontent2">&copy; Your Name Here</p>
+                                              </div>
+                                              <!-- / LAYOUT GRID -->
+                                            </footer>
+                                        </div>
+                                        <!-- / FOOTER -->
+                                    </div>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
+                    </div>
+           </main>
+      
+      <script>
+          var jArray=[];
+            
+          
+    
+            $( document ).ready(function() {      
+                $('#LiveSpinner').show();
+                var all = document.getElementsByTagName("*");
+                for (var i=0, max=all.length; i < max; i++) {
+                   
+                    if(all[i].nodeName!='BR' && all[i].nodeName!='A' && all[i].nodeName!='LINK' && all[i].nodeName!='META' && all[i].nodeName!='LI' &&  all[i].nodeName!='HTML' && all[i].nodeName!='BODY' && all[i].nodeName!='TITLE' && all[i].nodeName!='SCRIPT' && all[i].nodeName!='HEAD' && all[i].nodeName!='IMG')
+                    {
+                         var gtext = $(all[i]).clone().children().remove().end().text();
+                         var node=all[i].nodeName;
+                        // var id=all[i].id;
+                         $(node).each(function( i ) {
+                             var id=this.id;
+                             var result=getTextNodesIn($(this));
+                             var content;
+                            if(result.context.firstChild!=null){
+                                 if(result.context.firstChild.data!=null){
+                                       content=result.context.firstChild.data;
+                                       content=content.replace(/(\r\n|\n|\r)/gm,"");
+                                       content=content.trim();
+                                       
+                                      // console.log("con======" +id + ", with:  " + content);
+                                 }
+                            }
+                   
+                      //console.log(node);
+                        if(content){
+                             if(id!=null && id!=undefined && id!='' && content!=undefined && content!='' && content!=null){
+                                  console.log("con======" +id + ", with:  " + content);
+                                  var obj = {};
+                                  obj["key"] = id;
+                                  obj["value"] = content;
+                                  obj["nodename"] = node;
+                                  jArray.push(obj);
+                            } 
+                          }
+                       });  
+                         
+                    }
+                    
+                    
+                }
+               var jString = JSON.stringify(jArray);
+              // jString = jString.replace(/(\r\n|\n|\r)/gm,"");
+               console.log("jArray: "+jArray);
+               console.log("jString : "+jString );
+               
+                $Lightning.use("AJDEVORG:SDLTranslationComponentApp", function() {
+            
+                  $Lightning.createComponent("AJDEVORG:SDLTranslationComponent",{},"lightning",
+                  function(cmp) {
+                         var myExternalEvent;
+                         myExternalEvent = $A.get("e.AJDEVORG:myEvent");
+                         myExternalEvent.setParams({"data":jString});
+                         
+                         myExternalEvent.fire();
+                         $('#LiveSpinner').hide();
+                         $A.eventService.addHandler({ "event": "AJDEVORG:myEvent", "handler" : visualForceFunction});
+    
+                    });
+                });
+               
+           });
+           
+           function getTextNodesIn(el) {
+               
+                return $(el).find(":not(iframe)").addBack().contents().filter(function() {
+                    return this.nodeType == 3;
+                });
+            };
+           
+    var visualForceFunction = function(event){
+             $('#LiveSpinner').show();
+            var n=0;
+            var myEventData = event.getParam("data");
+            var translatedoutput=JSON.parse(myEventData);
+            //console.log("myEventData***********"+myEventData);
+              console.log(translatedoutput);
+              console.log("translatedoutput.length: "+translatedoutput.length);
+            for(var i=0; i<translatedoutput.length;i++){
+                var id=translatedoutput[i].key;
+                var translatedtext=translatedoutput[i].translatedWrapper.translation;
+                var nodename=translatedoutput[i].nodename;
+                 $(nodename).each(function( i ) {
+                             var theid=this.id;
+                             var result=getTextNodesIn($(this));
+                             var content;
+                            if(result.context.firstChild!=null){
+                                 if(result.context.firstChild.nodeValue!=null){
+                                       content=result.context.firstChild.nodeValue;
+                                       if(theid!=null && theid!=undefined && theid!='' && content!=undefined && content!='' && content!=null){
+                                              if(id==theid){
+                                                  //content=translatedtext;
+                                                  result.context.firstChild.data=translatedtext;
+                                              }
+                                        } 
+                                 }
+                            }
+                    });
+            }
+            $('#LiveSpinner').hide();
+        };
+
+      </script>
+    </body>
+  </html>
+</apex:page>

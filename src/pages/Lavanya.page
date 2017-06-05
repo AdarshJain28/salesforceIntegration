@@ -1,0 +1,433 @@
+<apex:page showHeader="false" sidebar="false">
+    <apex:includeLightning />
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>each demo</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  
+</head>
+    <body><span id="j_id0:j_id1:completePage">
+                <style type="text/css">
+                    div.user-profile {
+                        padding-top: 4px;
+                    }
+                    a.login-register:focus {
+                        color: #ddd;
+                    }
+                </style>
+
+                <div>
+                    <div id="lightning"></div><br />
+                    <div class="sdl-res-header-topbar">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="user-profile"><span id="j_id0:j_id1:j_id20"><a href="/login?retURL=%2F" class="sdl-res-ddmenu-link pull-right login-register">
+                                                Login/Register</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sdl-res-header sdl-res-header-color">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-6 sdl-res-main sdl-res-logo-margin">
+                                            <a class="sdl-res-nounderline" href="/CommunityHome" title="SDL Support Community">
+                                                <img src="/resource/1479956742000/CommunityStyleResources/images/sdl_support_logo.png" style="max-width:266px;max-height:31px;" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                            
+                            <div class="navbar-header">
+                                <button aria-expanded="false" class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button">
+                                    <span class="sr-only" id="id1">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+
+                                <a class="navbar-brand" href="/CommunityHome">
+                                    <img src="/resource/1479956742000/CommunityStyleResources/images/sdl_support_logo.png" style="max-width:266px;max-height:31px;" />
+                                </a>
+                            </div>
+
+                            
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                        <li class="sdl-res-nav-item active">
+                                            <a class="sdl-res-nav-item active" href="/CommunityHome">Home</a>
+                                        </li>
+
+                                        <li class="sdl-res-nav-item">
+                                            <a class="sdl-res-nav-item" href="http://www.sdl.com/support/" id="id2">About Support</a>
+                                        </li>
+
+                                        <li class="sdl-res-nav-item ">
+                                            <a class="sdl-res-nav-item " href="/CommunitySearchResults" id="id3">Knowledge</a>
+                                        </li>
+
+                                        <li class="sdl-res-nav-item">
+                                            <a class="sdl-res-nav-item" href="https://docs.sdl.com" id="id4">Technical Docs</a>
+                                        </li>
+
+                                        <li class="sdl-res-nav-item">
+                                            <a class="sdl-res-nav-item" href="https://community.sdl.com" id="id5">Community</a>
+                                        </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+
+                    
+                    <div class="min-height-test">
+            <style type="text/css">
+                div.sdl-res-module-item-text {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            </style>
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-sm-8 sdl-res-main">
+                        <div><span id="j_id0:j_id1:j_id49">
+    <div>
+        <form id="knowledgeSearchCriteriaForm">
+            <div class="input-group" id="knowledgeSearchCriteriaSection">
+                <input class="form-control" id="knowledgeSearchCriteriaInput" placeholder="Search for Knowledge..." type="text" />
+
+                <span  class="btn btn-default" id="knowledgeSearchCriteriaBtn" type="submit">Go!
+                </span>
+            </div>
+
+            <span class="help-block text-danger search-error" for="cc_num" id="knowledgeSearchCriteriaError" >Please enter at least 2 characters (excluding wildcards)</span>
+        </form>
+    </div>
+
+    </span>
+                        </div>
+
+                        <div class="sdl-res-spacer20px"></div>
+
+                        <div class="row"><span id="j_id0:j_id1:j_id53" class="col-sm-3 sdl-home-column">
+                                <a href="http://www.sdl.com/support/"><div class="sdl-res-home-imagebackground"><img align="centre" src="/resource/1479956742000/CommunityStyleResources/images/AboutSupport50x50.png" /></div></a><br />
+                                <h3 id="id8">About Support</h3></span>
+
+                            <span class="col-sm-3 sdl-home-column">
+                                <a href="/CommunitySearchResults"><div class="sdl-res-home-imagebackground"><img src="/resource/1479956742000/CommunityStyleResources/images/Knowledge50x50.png" /></div></a><br />
+                                <h3 id="id9">Knowledge</h3>
+                            </span>
+
+                            <span class="col-sm-3 sdl-home-column">
+                                <a href="https://docs.sdl.com"><div class="sdl-res-home-imagebackground"><img src="/resource/1479956742000/CommunityStyleResources/images/TechnicalDocumentation50x50.png" /></div></a><br />
+                                <h3 id="id10">Technical Docs</h3>
+                            </span><span id="j_id0:j_id1:j_id58" class="col-sm-3 sdl-home-column">
+                                <a href="https://community.sdl.com"><div class="sdl-res-home-imagebackground"><img src="/resource/1479956742000/CommunityStyleResources/images/SDLCommunity50x50.png" /></div></a><br />
+                                <h3 id="id11">Community</h3></span>
+                        </div>
+
+                        <div class="sdl-res-spacer20px"></div>
+
+                        <div><span id="j_id0:j_id1:j_id61">
+    <div class="sdl-res-module">
+        <div class="sdl-res-module-header" id="id12">Latest Articles</div>
+
+        <div class="sdl-res-module-body">
+                <div class="sdl-res-module-item"><a href="/communityknowledge?articleName=000001188">
+                            <div class="sdl-res-module-item-title" id="id13">Error when opening termbase in SDL MultiTerm: This termbase cannot be opened because it was created with an unsupported version of MultiTerm</div>
+                            <div class="sdl-res-module-item-text"></div>
+                            <div class="sdl-res-module-item-smalltext" id="id14">12/04/2017 16:18</div></a>
+                </div>
+                <div class="sdl-res-module-item"><a href="/communityknowledge?articleName=CUs-Studio-2015-SR3">
+                            <div class="sdl-res-module-item-title" id="id15">Cumulative Updates for SDL Trados Studio 2015 Service Release 3 (SR3)</div>
+                            <div class="sdl-res-module-item-text"></div>
+                            <div class="sdl-res-module-item-smalltext">12/04/2017 15:32</div></a>
+                </div>
+                <div class="sdl-res-module-item"><a href="/communityknowledge?articleName=000003862">
+                            <div class="sdl-res-module-item-title" id="id16">Slow performance when opening Components within a large Blueprint structure and SDL Translation Manager</div>
+                            <div class="sdl-res-module-item-text"></div>
+                            <div class="sdl-res-module-item-smalltext">12/04/2017 15:00</div></a>
+                </div>
+                <div class="sdl-res-module-item"><a href="/communityknowledge?articleName=000003858">
+                            <div class="sdl-res-module-item-title" id="id17">How do I get the Public Key for accessing Mediamanager via API</div>
+                            <div class="sdl-res-module-item-text" id="id18">SDL Tridion Web 8</div>
+                            <div class="sdl-res-module-item-smalltext">12/04/2017 11:00</div></a>
+                </div>
+                <div class="sdl-res-module-item"><a href="/communityknowledge?articleName=000002629">
+                            <div class="sdl-res-module-item-title" id="id19">End of life information for SDL Language Technologies software</div>
+                            <div class="sdl-res-module-item-text" id="id20">This article is a placeholder for our future announcements about the date and the product versions for which we no longer offer engineering and technical support.</div>
+                            <div class="sdl-res-module-item-smalltext">12/04/2017 10:33</div></a>
+                </div>
+        </div>
+    </div></span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 sdl-res-sidebar"><span id="j_id0:j_id1:j_id82"><span id="j_id0:j_id1:j_id83">
+<form id="j_id0:j_id1:j_id83:j_id84:j_id85" name="j_id0:j_id1:j_id83:j_id84:j_id85" method="post" action="/CommunityHome" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id0:j_id1:j_id83:j_id84:j_id85" value="j_id0:j_id1:j_id83:j_id84:j_id85" />
+
+        <div class="sdl-res-module">
+            <div class="sdl-res-module-header" id="id21">Article Types</div>
+
+            <div class="sdl-res-article-preview">
+                    <div class="sdl-res-module-item">
+                        <a href="/apex/communitysearchresults#a=FAQ__kav">
+                            <div class="sdl-res-module-item-text" id="id22">FAQ</div>
+                        </a>
+                    </div>
+                    <div class="sdl-res-module-item">
+                        <a href="/apex/communitysearchresults#a=ProductLifecycleInformation__kav">
+                            <div class="sdl-res-module-item-text" id="id23">Product Lifecycle Information</div>
+                        </a>
+                    </div>
+                    <div class="sdl-res-module-item">
+                        <a href="/apex/communitysearchresults#a=ReferenceArticle__kav">
+                            <div class="sdl-res-module-item-text" id="id24">Reference Article</div>
+                        </a>
+                    </div>
+                    <div class="sdl-res-module-item">
+                        <a href="/apex/communitysearchresults#a=ReleaseInformation__kav">
+                            <div class="sdl-res-module-item-text" id="id25">Release Information</div>
+                        </a>
+                    </div>
+                    <div class="sdl-res-module-item">
+                        <a href="/apex/communitysearchresults#a=SolutionArticles__kav">
+                            <div class="sdl-res-module-item-text" id="id26">Solution Article</div>
+                        </a>
+                    </div>
+                    <div class="sdl-res-module-item">
+                        <a href="/apex/communitysearchresults#a=UserGuide__kav">
+                            <div class="sdl-res-module-item-text" id="id27">User Guide</div>
+                        </a>
+                    </div>
+            </div>
+        </div><div id="j_id0:j_id1:j_id83:j_id84:j_id85:j_id101"></div>
+</form><span id="ajax-view-state-page-container" style="display: none"><span id="ajax-view-state" style="display: none"><input type="hidden" id="com.salesforce.visualforce.ViewState" name="com.salesforce.visualforce.ViewState" value="NfV2tDczhkcDA1X05vaFNSST0="></input></span></span></span>
+                            <div class="sdl-res-spacer10px"></div><span id="j_id0:j_id1:j_id90">
+<form id="j_id0:j_id1:j_id90:j_id91:dataCategoriesForm" name="j_id0:j_id1:j_id90:j_id91:dataCategoriesForm" method="post" action="/CommunityHome" class="sdl-com-no-border" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_id0:j_id1:j_id90:j_id91:dataCategoriesForm" value="j_id0:j_id1:j_id90:j_id91:dataCategoriesForm" />
+
+        <style>
+            .sdl-com-category-spacing-pad{
+                padding:5px;
+                background-color:fff;
+            }
+            .sdl-com-no-border{
+                border:0px;
+            }
+            a.data-category-link {
+                cursor: pointer;
+            }
+        </style><span id="j_id0:j_id1:j_id90:j_id91:dataCategoriesForm:mainDiv">
+            <div class="sdl-res-module">
+                <div class="sdl-res-module-header" id="id28">Category Filters</div>
+
+                <div class="sdl-res-article-preview">
+                        <div class="sdl-res-module-item">
+                            <a class="data-category-link" href="/apex/communitysearchresults#d=Knowledge_Delivery">
+                                <div class="sdl-res-module-item-text" id="id29">Knowledge Delivery</div>
+                            </a>
+                        </div>
+                        <div class="sdl-res-module-item">
+                            <a class="data-category-link" href="/apex/communitysearchresults#d=Language_Enterprise">
+                                <div class="sdl-res-module-item-text" id="id30">Language Enterprise</div>
+                            </a>
+                        </div>
+                        <div class="sdl-res-module-item">
+                            <a class="data-category-link" href="/apex/communitysearchresults#d=Translation_Productivity">
+                                <div class="sdl-res-module-item-text" id="id31">Translation Productivity</div>
+                            </a>
+                        </div>
+                        <div class="sdl-res-module-item">
+                            <a class="data-category-link" href="/apex/communitysearchresults#d=sdlWeb">
+                                <div class="sdl-res-module-item-text" id="id32">Web Experience Management</div>
+                            </a>
+                        </div>
+                </div>
+            </div></span>
+            <div id="j_id0:j_id1:j_id90:j_id91:dataCategoriesForm:j_id102"></div>
+</form></span></span>
+                    </div>
+                </div>
+            </div>
+                    </div>
+
+                    
+                    <footer class="footer">
+                        <div class="sdl-res-footer">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="pull-left">
+                                            <a class="sdl-res-footer-item-large" href="http://www.sdl.com" id="id33">SDL</a>
+                                            <a class="sdl-res-footer-item-large" href="http://www.sdl.com/cxc/digital-experience/" id="id34">Digital Experience</a>
+                                            <a class="sdl-res-footer-item-large" href="http://www.sdl.com/cxc/knowledge-delivery/" id="id35">Knowledge Delivery</a>
+                                            <a class="sdl-res-footer-item-large" href="http://www.translationzone.com" id="id36">TranslationZone.com</a>
+                                            <a class="sdl-res-footer-item-large" href="http://www.sdl.com/cxc/language/" id="id37">Language</a>
+                                            <a class="sdl-res-footer-item-large" href="http://www.sdl.com/cxc/customer-analytics/" id="id38">Customer Analytics</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <img class="sdl-res-footer-image-align pull-right" height="20" src="/resource/1479956742000/CommunityStyleResources/images/sdl-logo-footer.png-140x40.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sdl-res-footer-dark">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-4 sdl-res-footer-item-small">
+                                        <div class="pull-left" id="id39">
+                                            All Contents Copyright © SDL plc.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-8">
+                                        <div class="pull-right">
+                                        <a class="sdl-res-footer-item-small" href="http://www.sdl.com/about/copyright.html">COPYRIGHT
+                                        </a>
+                                        <a class="sdl-res-footer-item-small" href="http://www.sdl.com/about/privacy/privacy-policy.html">PRIVACY POLICY</a>
+                                        <a class="sdl-res-footer-item-small" href="http://www.sdl.com/about/privacy/cookie-policy.html">COOKIE POLICY</a>
+                                        <a class="sdl-res-footer-item-small" href="http://www.sdl.com/about/terms.html">TERMS AND CONDITIONS</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div></span>
+  
+    
+    <script>
+           
+           var jArray=[];
+            
+          
+    
+            $( document ).ready(function() {      
+            
+                var all = document.getElementsByTagName("*");
+                for (var i=0, max=all.length; i < max; i++) {
+                    if(all[i].nodeName!='BR' && all[i].nodeName!='LINK' && all[i].nodeName!='META' && all[i].nodeName!='LI' && all[i].nodeName!='A' && all[i].nodeName!='HTML' && all[i].nodeName!='BODY' && all[i].nodeName!='TITLE' && all[i].nodeName!='SCRIPT' && all[i].nodeName!='HEAD' && all[i].nodeName!='IMG')
+                    {
+                         var gtext = $(all[i]).clone().children().remove().end().text();
+                         var node=all[i].nodeName;
+                        // var id=all[i].id;
+                         $(node).each(function( i ) {
+                             var id=this.id;
+                             var result=getTextNodesIn($(this));
+                             var content;
+                            if(result.context.firstChild!=null){
+                                 if(result.context.firstChild.nodeValue!=null){
+                                       content=result.context.firstChild.nodeValue;
+                                 }
+                            }
+                    //});
+                      //console.log(node);
+                             if(id!=null && id!=undefined && id!='' && content!=undefined && content!='' && content!=null){
+                                  var obj = {};
+                                  obj["key"] = id;
+                                  obj["value"] = content;
+                                  obj["nodename"] = node;
+                                  jArray.push(obj);
+                            } 
+                       });  
+                         
+                    }
+                }
+               var jString = JSON.stringify(jArray);
+              // jString = jString.replace(/(\r\n|\n|\r)/gm,"");
+               console.log("jArray: "+jArray);
+               console.log("jString : "+jString );
+               
+                $Lightning.use("AJDEVORG:SDLTranslationComponentApp", function() {
+            
+                  $Lightning.createComponent("AJDEVORG:SDLTranslationComponent",{},"lightning",
+                  function(cmp) {
+                         var myExternalEvent;
+                         myExternalEvent = $A.get("e.AJDEVORG:myEvent");
+                         myExternalEvent.setParams({"data":jString});
+                         myExternalEvent.fire();
+                         $A.eventService.addHandler({ "event": "AJDEVORG:myEvent", "handler" : visualForceFunction});
+    
+                    });
+                });
+               
+           });
+           
+           function getTextNodesIn(el) {
+                return $(el).find(":not(iframe)").addBack().contents().filter(function() {
+                    return this.nodeType == 3;
+                });
+            };
+           
+    var visualForceFunction = function(event){
+            var n=0;
+            var myEventData = event.getParam("data");
+            var translatedoutput=JSON.parse(myEventData);
+            //console.log("myEventData***********"+myEventData);
+              console.log(translatedoutput);
+              console.log("translatedoutput.length: "+translatedoutput.length);
+            for(var i=0; i<translatedoutput.length;i++){
+                var id=translatedoutput[i].key;
+                var translatedtext=translatedoutput[i].translatedWrapper.translation;
+                var nodename=translatedoutput[i].nodename;
+                $(nodename).each(function( i ) {
+                             var theid=this.id;
+                             var result=getTextNodesIn($(this));
+                             var content;
+                            if(result.context.firstChild!=null){
+                                 if(result.context.firstChild.nodeValue!=null){
+                                       content=result.context.firstChild.nodeValue;
+                                       if(theid!=null && theid!=undefined && theid!='' && content!=undefined && content!='' && content!=null){
+                                              if(id==theid){
+                                                  //content=translatedtext;
+                                                  result.context.firstChild.data=translatedtext;
+                                              }
+                                        } 
+                                 }
+                            }
+                            
+                            
+                  });
+              /*  
+                console.log(i+">   id: "+id+", translatedtext: "+translatedtext);
+                var tag=document.getElementById(id);
+               console.log(tag);
+                if(tag!=null){
+                    if(tag.innerText!=null){
+                        
+                        console.log(n+">  tag---->"+tag);
+                        tag.innerText=translatedtext;
+                        n++;
+                
+                    }
+                }
+              */
+                
+            }
+        };
+
+           
+   </script>
+   
+    </body>
+    
+</html>
+</apex:page>

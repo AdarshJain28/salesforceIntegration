@@ -1,0 +1,41 @@
+<apex:page controller="googleAuthorizationController">
+<apex:form >
+  <html lang="en" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink">
+    <head>
+        <title>GOOGLE CALENDAR API</title>
+        <meta charset="utf-8"/>
+        <meta content="ie=edge" http-equiv="x-ua-compatible"/>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta content="Design System" name="apple-mobile-web-app-title"/>
+        <meta content="Design System" name="application-name"/>
+        <meta content="#ffffff" name="msapplication-TileColor"/>
+        <meta content="#ffffff" name="theme-color"/>
+        
+        <apex:stylesheet value="{!URLFOR($Resource.TMS, '/TMS/CSS/assets/styles/salesforce-lightning-design-system-vf.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.Create, '/assets/styles/site.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.Create, '/assets/styles/sdl.css')}"/>
+        
+        <apex:includeScript value="{!URLFOR($Resource.Create, '/lib/jquery/jquery-1.11.1.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.Create, '/lib/moment/moment.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.Create, '/src/jquery.aljs-init.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.Create, '/src/jquery.aljs-datepicker.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.Create, '/src/jquery.aljs-tabs.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.Create, '/src/jquery.aljs-modal.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.Create, '/assets/js/sdl.js')}"/>
+    </head>
+    
+    <script>
+        
+    </script>
+      
+    <body>
+      <apex:pageMessages ></apex:pageMessages>   
+      <apex:commandButton action="{!requestAuthorization}" value="Login"/>
+      <apex:commandButton action="{!doOnLoad}" value="Obtain Access Token"/>
+    <!--  <apex:commandButton action="{!refreshAccessToken}" value="Refresh Access Token"/> -->
+      <apex:commandButton action="{!getgoogleAuth}" value="Don't Redirect"/>
+    </body>
+        
+  </html>
+</apex:form>  
+</apex:page>

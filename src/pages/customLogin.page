@@ -1,0 +1,74 @@
+<apex:page docType="html-5.0" controller="AdarshCustomLoginController" showHeader="false" sidebar="false" standardStylesheets="false">
+<apex:stylesheet value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+<apex:includeScript value="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"/>
+    <div>
+    <apex:form styleClass="form-horizontal">
+      <fieldset>
+        <div id="legend">
+          <legend class="">Login</legend>
+        </div>
+        <div>
+          <!-- Username -->
+          <apex:outputLabel value="Username" styleClass="col-lg-2 control-label" for="username"/>
+          <div>
+              <apex:inputText value="{!username}" id="username" styleClass="form-control" />
+          </div>
+        </div>
+        <div>
+          <!-- Password-->
+          <apex:outputLabel value="Password" styleClass="col-lg-2 control-label" for="password"/>
+          <div>
+            <apex:inputSecret id="password" value="{!password}" styleClass="form-control" />
+          </div>
+        </div>
+        <div>
+          <!-- Button -->
+          <div></div>
+          <div>
+            <apex:commandButton action="{!login}" styleClass="btn btn-success" value="Login"/>
+          </div>
+        </div>
+      </fieldset>
+    </apex:form>
+    </div>
+    
+    <style>
+        input[type=submit] {
+            -webkit-appearance: button;
+            cursor: pointer;
+            margin-left: 24%;
+        }
+        .form-control {
+            display: block;
+            width: 50;
+            height: 34px;
+            width: 20%;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+        .legend {
+            display: block;
+            width: 100%;
+            padding: 0;
+            margin-bottom: 20px;
+            font-size: 21px;
+            line-height: inherit;
+            color: #333;
+            border: 0;
+            border-bottom: 1px solid #e5e5e5;
+            /* text-align: center; */
+            margin-left: 23%;
+        }
+    </style>
+</apex:page>
